@@ -21,6 +21,7 @@
 
 ## Запуск проекта в dev-режиме
 
+```
 git clone https://github.com/BU-Marina/api_yamdb
 ```
 

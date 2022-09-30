@@ -61,7 +61,7 @@ pip install -r requirements.txt
 
     python manage.py runserver
 
-### Запуск тестов
+Запуск тестов
 
 ```
 pytest

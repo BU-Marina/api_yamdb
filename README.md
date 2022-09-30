@@ -21,13 +21,50 @@
 
 ## Запуск проекта в dev-режиме
 
-Установите зависимости из файла requirements.txt
+git clone https://github.com/BU-Marina/api_yamdb
+```
 
-    pip install -r requirements.txt
+```
+cd api_yamdb
+```
+
+Cоздать и активировать виртуальное окружение:
+
+```
+python -m venv env
+```
+
+Если у вас linux/MacOS:
+
+```
+. venv/bin/activate
+```
+
+Если у вас Windows:
+
+```
+. venv/Scripts/activate
+```
+
+Установить зависимости из файла requirements.txt:
+
+```
+python -m pip install --upgrade pip
+```
+
+```
+pip install -r requirements.txt
+```
 
 В папке с файлом manage.py выполните команду:
 
     python manage.py runserver
+
+### Запуск тестов
+
+```
+pytest
+```
 
 ## Документация с примерами запросов доступна по адресу:
 

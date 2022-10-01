@@ -25,10 +25,6 @@
 git clone https://github.com/BU-Marina/api_yamdb
 ```
 
-```
-cd api_yamdb
-```
-
 Cоздать и активировать виртуальное окружение:
 
 ```
@@ -57,7 +53,13 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-В папке с файлом manage.py выполните команду:
+Выполнить миграции из директории с файлом manage.py:
+
+```
+python manage.py migrate
+```
+
+Запустить проект:
 
     python manage.py runserver
 

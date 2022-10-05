@@ -14,7 +14,7 @@ PASSWORD_LENGTH = 18
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(
+    def create(
         self,
         username,
         email,
@@ -73,6 +73,11 @@ class CustomUserManager(BaseUserManager):
         )
         user.is_superuser = True
         user.is_staff = True
+        user.email_user(
+            subject='confirmation_code',
+            message=user.confirmation_code,
+            fail_silently=False
+        )
         user.save()
 
         return user

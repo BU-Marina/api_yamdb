@@ -33,6 +33,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             username=username,
             email=self.normalize_email(email),
+            confirmation_code=self.make_random_password(length=CODE_LENGTH),
             password=password,
             role=role,
             bio=bio,
@@ -40,11 +41,6 @@ class CustomUserManager(BaseUserManager):
             last_name=last_name
         )
         user.save()
-        user.email_user(
-            subject='confirmation_code',
-            message=user.confirmation_code,
-            fail_silently=False
-        )
 
         return user
 
@@ -105,10 +101,6 @@ class User(AbstractUser):
 
     class Meta:
         ordering = ['-date_joined']
-
-    @property
-    def get_confirmation_code(self):
-        return self.objects.make_random_password(length=CODE_LENGTH)
 
     @property
     def is_admin(self):

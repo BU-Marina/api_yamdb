@@ -134,7 +134,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         return username
 
     def create(self, validated_data):
-        user = User.objects.create(**validated_data)
+        user = User.objects.create_user(**validated_data)
         user.email_user(
             subject='confirmation_code',
             message=user.confirmation_code,
@@ -192,3 +192,14 @@ class UserSerializer(serializers.ModelSerializer):
             'username', 'email', 'first_name', 'last_name',
             'bio', 'role'
         )
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return {
+            'username': user.username,
+            'email': user.email,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'bio': user.bio,
+            'role': user.role,
+        }

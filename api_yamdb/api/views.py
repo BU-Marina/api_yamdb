@@ -4,7 +4,7 @@ from rest_framework import filters, status, viewsets
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.generics import get_object_or_404
 from rest_framework.decorators import action
-from rest_framework.mixins import CreateModelMixin
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenViewBase
@@ -119,7 +119,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         )
 
 
-class SignUpView(CreateModelMixin, viewsets.GenericViewSet):
+class SignUpView(CreateModelMixin, RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = SignUpSerializer
@@ -134,6 +134,17 @@ class SignUpView(CreateModelMixin, viewsets.GenericViewSet):
             status=status.HTTP_200_OK,
             headers=headers
         )
+
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.get_serializer(request.data)
+        username = serializer.data["username"]
+        user = get_object_or_404(User, username=username)
+        user.email_user(
+            subject='confirmation_code',
+            message=user.confirmation_code,
+            fail_silently=False
+        )
+        return Response(serializer.data)
 
 
 class TokenView(TokenViewBase):

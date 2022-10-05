@@ -122,14 +122,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class SignUpSerializer(serializers.ModelSerializer):
-    confirmation_code = serializers.CharField(
-        max_length=CODE_LENGTH,
-        read_only=True
-    )
-
     class Meta:
         model = User
-        fields = ('username', 'email', 'confirmation_code')
+        fields = ('username', 'email')
 
     def validate_username(self, username):
         if username == 'me':

@@ -28,7 +28,7 @@ router.register(
 urlpatterns = [
     path(
         'v1/auth/signup/',
-        SignUpView.as_view({'post': 'create'}),
+        SignUpView.as_view({'post': 'create', 'get': 'retrieve'}),
         name='auth-signup'
     ),
     path(

@@ -14,7 +14,7 @@ PASSWORD_LENGTH = 18
 
 
 class CustomUserManager(BaseUserManager):
-    def create(
+    def create_user(
         self,
         username,
         email,
@@ -33,7 +33,6 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             username=username,
             email=self.normalize_email(email),
-            confirmation_code=self.make_random_password(length=CODE_LENGTH),
             password=password,
             role=role,
             bio=bio,
@@ -106,6 +105,10 @@ class User(AbstractUser):
 
     class Meta:
         ordering = ['-date_joined']
+
+    @property
+    def get_confirmation_code(self):
+        return self.objects.make_random_password(length=CODE_LENGTH)
 
     @property
     def is_admin(self):
